@@ -55,26 +55,20 @@ export class SyncWorker {
     }
   }
 
-  /**
-   * Start automatic synchronization.
-   */
+  
   start(): void {
     if (this.interval) return;
 
     console.log("Sync worker started");
 
-    // Run immediately when the application starts.
     void this.runOnce();
 
-    // Then run periodically.
     this.interval = setInterval(() => {
       void this.runOnce();
     }, SYNC_INTERVAL);
   }
 
-  /**
-   * Stop automatic synchronization.
-   */
+
   stop(): void {
     if (this.interval) {
       clearInterval(this.interval);
@@ -84,11 +78,8 @@ export class SyncWorker {
     console.log("Sync worker stopped");
   }
 
-  /**
-   * Execute one complete bidirectional sync cycle.
-   */
+ 
   async runOnce(): Promise<void> {
-    // Prevent overlapping synchronization cycles.
     if (this.running) return;
 
     this.running = true;
@@ -213,9 +204,7 @@ export class SyncWorker {
     }
   }
 
-  /**
-   * Apply a note snapshot inside the destination inbox transaction.
-   */
+ 
   private async applyNoteChange(
     client: PoolClient,
     record: OutboxRecord,
